@@ -23,6 +23,7 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
+	//Uses blockchain.info to create a bitcoin wallet.
 	func createProperties(completionHandler: (success: Bool, errorString: String?) -> Void) {
 
 		password = randomStringWithLength(10)
@@ -53,7 +54,7 @@ class  BitcoinAddress: NSCoder  {
 		task.resume()
 	}
 
-
+	//Used when the properties already exist and are being restored from NSCoding.
 	func setProperties(password: String, address: String, guid: String) {
 		self.password = password
 		self.address = address
@@ -61,8 +62,10 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
+	//Get the balance of the Bitcoin address.
 	func getBalance(balanceDisplay: UILabel, completionHandler: (success: Bool, errorString: String?) -> Void) {
 
+		//Sometimes this function is called before a bitcoin Address can be created.
 		if address == "Error" {
 			return
 		} else {
@@ -95,6 +98,7 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
+	//Send bitcoin to an external address.
 	func sendBitcoin(address: String, amount: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
 
 		let BASE_URL = "https://blockchain.info/merchant/\(BitcoinAddress.sharedInstance().guid)/payment"
@@ -149,6 +153,7 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
+	//Creates a password to send to blockchain.info.
 	//http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
 	func randomStringWithLength(length: Int) -> String {
 
@@ -166,6 +171,8 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
+	//The bitcoin address information is persisted with NSCoding, not Core Data:
+	
 	//Required for the class to conform to the NSCoding protocol.
 	func encodeWithCoder(aCoder: NSCoder!) {
 		aCoder.encodeObject(password, forKey:"password")

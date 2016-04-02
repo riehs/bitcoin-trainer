@@ -16,16 +16,18 @@ class SetGoalViewController: UIViewController {
 
     @IBAction func setGoal(sender: AnyObject) {
 
+		//Int32 is used for compatibility with older devices.
 		Goals.sharedInstance().goals[0].workoutCount = Int32(workoutCountField.text!)!
 		Goals.sharedInstance().goals[0].prize = prizeField.text!
 		Goals.sharedInstance().goals[0].date = NSDate()
 
+		//Save goal into Core Data.
         CoreDataStackManager.sharedInstance().saveContext()
 
 		self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-
+	//The user presses the cancel button.
 	@IBAction func dismissSetGoal(sender: AnyObject) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -33,12 +35,10 @@ class SetGoalViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
 	}
 
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 }

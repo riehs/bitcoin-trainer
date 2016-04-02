@@ -387,6 +387,9 @@
                                     <action selector="sendBitcoinButton:" destination="i8b-OL-TE3" eventType="touchUpInside" id="2O8-eE-lwC"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kAv-8m-ojW">
+                                <rect key="frame" x="290" y="380" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -400,13 +403,16 @@
                             <constraint firstAttribute="trailing" secondItem="tDb-DZ-XB4" secondAttribute="trailing" id="YZ4-nu-HOd"/>
                             <constraint firstItem="sPt-9q-Nle" firstAttribute="leading" secondItem="Yqk-14-lWw" secondAttribute="leadingMargin" constant="-4" id="aN6-XS-3Ax"/>
                             <constraint firstItem="q8v-Nz-40G" firstAttribute="top" secondItem="idY-4H-0CV" secondAttribute="bottom" constant="26" id="drN-oy-Qiy"/>
+                            <constraint firstItem="kAv-8m-ojW" firstAttribute="top" secondItem="q8v-Nz-40G" secondAttribute="bottom" constant="8" id="iUi-2u-SRl"/>
                             <constraint firstItem="pDp-AB-M23" firstAttribute="centerX" secondItem="idY-4H-0CV" secondAttribute="centerX" id="pgZ-MS-hx9"/>
                             <constraint firstItem="pDp-AB-M23" firstAttribute="top" secondItem="q8v-Nz-40G" secondAttribute="bottom" constant="26" id="s4R-ng-K0b"/>
                             <constraint firstItem="w4B-NN-Kuv" firstAttribute="centerX" secondItem="sPt-9q-Nle" secondAttribute="centerX" id="sIY-KI-zfS"/>
                             <constraint firstItem="sPt-9q-Nle" firstAttribute="centerX" secondItem="idY-4H-0CV" secondAttribute="centerX" id="sul-G4-y8G"/>
+                            <constraint firstItem="kAv-8m-ojW" firstAttribute="centerX" secondItem="Yqk-14-lWw" secondAttribute="centerX" id="uxW-B4-bGS"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="kAv-8m-ojW" id="XRC-ja-x15"/>
                         <outlet property="addressTextField" destination="sPt-9q-Nle" id="U3S-MC-5xl"/>
                         <outlet property="amountTextField" destination="q8v-Nz-40G" id="fee-tX-ZGB"/>
                     </connections>

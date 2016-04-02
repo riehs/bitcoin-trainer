@@ -13,32 +13,43 @@ class SendBitcoinViewController: UIViewController {
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+	//The user presses the Cancel button.
     @IBAction func dismissSendBitcoin(sender: AnyObject) {
+
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+
     @IBAction func sendBitcoinButton(sender: AnyObject) {
 
-		//TODO - confirm that fields contain valid data.
         sendBitcoin(addressTextField.text!, amount: amountTextField.text!)
-
     }
 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		//The activity indicator is hidden when the view first loads.
+		activityIndicator.hidden = true
 	}
 
 
     func sendBitcoin(address: String, amount: String) {
 		
+		//Make the activity indicator visible.
+		activityIndicator.hidden = false
+		
 		BitcoinAddress.sharedInstance().sendBitcoin(address, amount: amount) { (success, errorString) in
 			if  success {
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.activityIndicator.hidden = true
 					self.dismissViewControllerAnimated(true, completion: nil)
 				});
 			} else {
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.activityIndicator.hidden = true
 					self.errorAlert("Error", error: "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
 				});
 			}

@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController {
 
 		super.viewDidLoad()
 
+		//Using these three pieces of information, a user can restore lost Bitcoin at blockchain.info.
+
 		addressDisplay.text = BitcoinAddress.sharedInstance().address
 		guidDisplay.text = BitcoinAddress.sharedInstance().guid
 		passwordDisplay.text = BitcoinAddress.sharedInstance().password
@@ -26,6 +28,5 @@ class SettingsViewController: UIViewController {
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 }

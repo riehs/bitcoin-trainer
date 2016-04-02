@@ -13,7 +13,7 @@ class Goals {
 
 	var goals: [Goal] = [Goal]()
 
-	//Allows other classes to reference a common instance of the memes array.
+	//Allows other classes to reference a common instance of the goals array. There will neer be more than one goal in this array.
 	class func sharedInstance() -> Goals {
 
 		struct Singleton {
