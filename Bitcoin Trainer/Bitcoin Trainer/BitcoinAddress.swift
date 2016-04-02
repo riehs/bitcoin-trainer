@@ -112,12 +112,16 @@ class  BitcoinAddress: NSCoder  {
 		let request = NSURLRequest(URL: url)
 
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+
 			if let error = downloadError {
 				completionHandler(success: false, errorString: "Could not complete the request \(error)")
 			} else {
 				let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as! NSDictionary
-				print(parsedResult["message"]!)
-				completionHandler(success: true, errorString: nil)
+				if parsedResult["message"] == nil {
+					completionHandler(success: false, errorString: "Could not complete the request.")
+				} else {
+					completionHandler(success: true, errorString: nil)
+				}
 			}
 		}
 		task.resume()

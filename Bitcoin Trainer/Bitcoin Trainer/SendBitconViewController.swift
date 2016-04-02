@@ -38,9 +38,19 @@ class SendBitcoinViewController: UIViewController {
 					self.dismissViewControllerAnimated(true, completion: nil)
 				});
 			} else {
-				print(errorString)
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.errorAlert("Error", error: "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
+				});
 			}
 		}
+	}
+
+
+	//Creates an Alert-style error message.
+	func errorAlert(title: String, error: String) {
+		let controller: UIAlertController = UIAlertController(title: title, message: error, preferredStyle: .Alert)
+		controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+		presentViewController(controller, animated: true, completion: nil)
 	}
 
 
