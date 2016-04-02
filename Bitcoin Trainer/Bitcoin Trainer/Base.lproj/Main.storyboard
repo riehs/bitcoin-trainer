@@ -43,7 +43,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mt7-hk-OFJ" id="EZZ-fU-JG3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -378,7 +378,8 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDp-AB-M23">
-                                <rect key="frame" x="282" y="401" width="36" height="30"/>
+                                <rect key="frame" x="276" y="398" width="47" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Send">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -399,10 +400,10 @@
                             <constraint firstAttribute="trailing" secondItem="tDb-DZ-XB4" secondAttribute="trailing" id="YZ4-nu-HOd"/>
                             <constraint firstItem="sPt-9q-Nle" firstAttribute="leading" secondItem="Yqk-14-lWw" secondAttribute="leadingMargin" constant="-4" id="aN6-XS-3Ax"/>
                             <constraint firstItem="q8v-Nz-40G" firstAttribute="top" secondItem="idY-4H-0CV" secondAttribute="bottom" constant="26" id="drN-oy-Qiy"/>
-                            <constraint firstItem="pDp-AB-M23" firstAttribute="top" secondItem="q8v-Nz-40G" secondAttribute="bottom" constant="29" id="jT8-I8-qaa"/>
+                            <constraint firstItem="pDp-AB-M23" firstAttribute="centerX" secondItem="idY-4H-0CV" secondAttribute="centerX" id="pgZ-MS-hx9"/>
+                            <constraint firstItem="pDp-AB-M23" firstAttribute="top" secondItem="q8v-Nz-40G" secondAttribute="bottom" constant="26" id="s4R-ng-K0b"/>
                             <constraint firstItem="w4B-NN-Kuv" firstAttribute="centerX" secondItem="sPt-9q-Nle" secondAttribute="centerX" id="sIY-KI-zfS"/>
                             <constraint firstItem="sPt-9q-Nle" firstAttribute="centerX" secondItem="idY-4H-0CV" secondAttribute="centerX" id="sul-G4-y8G"/>
-                            <constraint firstItem="q8v-Nz-40G" firstAttribute="centerX" secondItem="pDp-AB-M23" secondAttribute="centerX" id="wx9-LN-LRW"/>
                         </constraints>
                     </view>
                     <connections>
