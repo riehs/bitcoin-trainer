@@ -1,4 +1,4 @@
-# Bicoin Trainer
+# Bitcoin Trainer
 
 Set a workout goal in Bitcoin Trainer, and let a bitcoin reward be your motivation!
 
