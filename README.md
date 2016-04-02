@@ -8,11 +8,11 @@ When you finish setting your goal, your bitcoin is locked in the app, and cannot
 
 Complete workouts by using your Apple Watch, or a third-party app such as Runkeeper. You can also manually enter workouts in the Health app by browsing to Health Data > Fitness > Workouts > Add Data Point.
 
-When you meet your goal, your bitcoin becomes accessible again. Find a store that accepts bitcoin, and buy your treat! (Your bitcoin balance is displayed in satoshis. The app will automatically include a 10000 satoshi fee when you send bitcoin, so take this into account when checking your balance.)
+When you meet your goal, your bitcoin becomes accessible again. Find a store that accepts bitcoin, and buy your treat! (Your bitcoin balance is displayed in satoshis. The app will automatically include a 10000 satoshi fee when you send bitcoin, so take this into account when deciding how much to send.)
 
 --
 
-Instruction for Udacity Grader:
+Instructions for Udacity Grader:
 
 Before starting the app, you’ll need to replace 'SET API KEY HERE.' In BitcoinAddress.swift with an API key from blockchain.info. I’ve included my API key in the “notes to reviewer”.
 
