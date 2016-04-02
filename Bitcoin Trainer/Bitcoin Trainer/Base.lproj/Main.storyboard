@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3v9-FV-QPb">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item-->
+        <scene sceneID="XI5-JB-AM1">
+            <objects>
+                <navigationController id="3v9-FV-QPb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="IcG-1i-7zZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tAf-H8-hcN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="p2a-5e-rxU" kind="relationship" relationship="rootViewController" id="IIz-7W-8zV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SSU-zD-Vb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-342" y="-344"/>
+        </scene>
+        <!--Bitcoin Trainer-->
+        <scene sceneID="U6Z-7f-8BH">
+            <objects>
+                <viewController id="p2a-5e-rxU" customClass="DashboardViewController" customModule="Bitcoin_Trainer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="74y-RB-QxF"/>
+                        <viewControllerLayoutGuide type="bottom" id="SPV-Fs-xon"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EiY-qn-5qd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nAn-N2-0jk">
+                                <rect key="frame" x="0.0" y="310" width="600" height="290"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="workoutcellid" id="mt7-hk-OFJ">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mt7-hk-OFJ" id="EZZ-fU-JG3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="p2a-5e-rxU" id="sAX-Yb-aoW"/>
+                                    <outlet property="delegate" destination="p2a-5e-rxU" id="bdl-ae-h4i"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJI-f3-wFB">
+                                <rect key="frame" x="262" y="76" width="77" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Set Goal"/>
+                                <connections>
+                                    <segue destination="coW-YD-RAD" kind="presentation" id="rYb-Yb-Ls0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJm-gQ-GdA">
+                                <rect key="frame" x="245" y="114" width="111" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Load Bitcoin"/>
+                                <connections>
+                                    <segue destination="UN1-jM-1ne" kind="presentation" id="tyq-7N-eX2"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nge-P3-q1B">
+                                <rect key="frame" x="255" y="178" width="89" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P7l-UD-d6M">
+                                <rect key="frame" x="243" y="269" width="113" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Send Bitcoin"/>
+                                <connections>
+                                    <segue destination="i8b-OL-TE3" kind="presentation" id="B0P-Lz-1cf"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xt9-9L-KXf">
+                                <rect key="frame" x="150" y="207" width="300" height="66"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="hCF-ey-OzX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Balance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40A-iW-DmT">
+                                <rect key="frame" x="225" y="151" width="150" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workouts Counting Toward Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FG-dj-Fet">
+                                <rect key="frame" x="152" y="336" width="295" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="40A-iW-DmT" firstAttribute="top" secondItem="xJm-gQ-GdA" secondAttribute="bottom" constant="1" id="2d6-YI-38h"/>
+                            <constraint firstItem="nge-P3-q1B" firstAttribute="top" secondItem="40A-iW-DmT" secondAttribute="bottom" constant="3" id="6Ua-af-Qns"/>
+                            <constraint firstItem="nAn-N2-0jk" firstAttribute="top" secondItem="P7l-UD-d6M" secondAttribute="bottom" constant="5" id="A0y-Nj-iTj"/>
+                            <constraint firstItem="nAn-N2-0jk" firstAttribute="centerX" secondItem="6FG-dj-Fet" secondAttribute="centerX" id="EdR-hC-aUc"/>
+                            <constraint firstItem="jJI-f3-wFB" firstAttribute="centerX" secondItem="xJm-gQ-GdA" secondAttribute="centerX" id="LH5-yv-jIM"/>
+                            <constraint firstItem="jJI-f3-wFB" firstAttribute="top" secondItem="74y-RB-QxF" secondAttribute="bottom" constant="12" id="LIL-TJ-4fq"/>
+                            <constraint firstItem="xt9-9L-KXf" firstAttribute="centerX" secondItem="nge-P3-q1B" secondAttribute="centerX" id="QVI-8V-NzY"/>
+                            <constraint firstItem="P7l-UD-d6M" firstAttribute="top" secondItem="nge-P3-q1B" secondAttribute="bottom" constant="67" id="R2Y-s8-a2x"/>
+                            <constraint firstItem="40A-iW-DmT" firstAttribute="centerX" secondItem="nge-P3-q1B" secondAttribute="centerX" id="TKQ-Bm-HLj"/>
+                            <constraint firstItem="nAn-N2-0jk" firstAttribute="top" secondItem="xt9-9L-KXf" secondAttribute="bottom" constant="37" id="ULW-wV-KDz"/>
+                            <constraint firstItem="nAn-N2-0jk" firstAttribute="bottom" secondItem="SPV-Fs-xon" secondAttribute="top" id="agL-jj-BV4"/>
+                            <constraint firstItem="nAn-N2-0jk" firstAttribute="leading" secondItem="EiY-qn-5qd" secondAttribute="leading" id="byo-uE-SaW"/>
+                            <constraint firstAttribute="trailing" secondItem="nAn-N2-0jk" secondAttribute="trailing" id="dt7-0S-MY9"/>
+                            <constraint firstItem="6FG-dj-Fet" firstAttribute="top" secondItem="P7l-UD-d6M" secondAttribute="bottom" constant="31" id="fSN-Py-oev"/>
+                            <constraint firstItem="xJm-gQ-GdA" firstAttribute="trailing" secondItem="P7l-UD-d6M" secondAttribute="trailing" id="fcJ-TQ-Dtq"/>
+                            <constraint firstItem="xt9-9L-KXf" firstAttribute="top" secondItem="nge-P3-q1B" secondAttribute="bottom" constant="5" id="feu-6O-gBG"/>
+                            <constraint firstItem="xJm-gQ-GdA" firstAttribute="top" secondItem="jJI-f3-wFB" secondAttribute="bottom" constant="2" id="nsI-8n-fzi"/>
+                            <constraint firstItem="P7l-UD-d6M" firstAttribute="centerX" secondItem="6FG-dj-Fet" secondAttribute="centerX" id="pvk-UT-ECw"/>
+                            <constraint firstItem="xJm-gQ-GdA" firstAttribute="centerX" secondItem="40A-iW-DmT" secondAttribute="centerX" id="wHJ-cr-34u"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bitcoin Trainer" id="Zbd-Hj-pv7">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="ovf-Z3-wVv">
+                            <connections>
+                                <segue destination="fez-Qm-w0B" kind="show" id="Nmi-gq-hg0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="balanceDisplay" destination="nge-P3-q1B" id="DBh-r5-LDg"/>
+                        <outlet property="sendBitcoinButton" destination="P7l-UD-d6M" id="eGF-g8-j4j"/>
+                        <outlet property="setGoalButton" destination="jJI-f3-wFB" id="K73-eT-7pM"/>
+                        <outlet property="statusDisplay" destination="xt9-9L-KXf" id="ooe-TA-icO"/>
+                        <outlet property="tableView" destination="nAn-N2-0jk" id="D0w-Lc-0v9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BCL-ms-2EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="738" y="-344"/>
+        </scene>
+        <!--Set Goal View Controller-->
+        <scene sceneID="pQG-M2-iRE">
+            <objects>
+                <viewController id="coW-YD-RAD" customClass="SetGoalViewController" customModule="Bitcoin_Trainer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dQ1-KT-LvG"/>
+                        <viewControllerLayoutGuide type="bottom" id="YfV-Me-ca9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="n6k-2H-CaQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQp-bE-rHa">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Set Goal" id="ggk-h1-S9v" userLabel="Set Goal">
+                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="Wsj-Oo-yFf">
+                                            <connections>
+                                                <action selector="dismissSetGoal:" destination="coW-YD-RAD" id="Tdt-eO-ZtE"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Z7-j3-r2z">
+                                <rect key="frame" x="252" y="160" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="CC4-h2-x3y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I will buy a..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lae-aj-rtf">
+                                <rect key="frame" x="253" y="227" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pWx-Ub-HWM">
+                                <rect key="frame" x="20" y="271" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j31-Ho-rOH">
+                                <rect key="frame" x="259" y="334" width="82" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Set Goal!"/>
+                                <connections>
+                                    <action selector="setGoal:" destination="coW-YD-RAD" eventType="touchUpInside" id="IUU-B3-HNK"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="When I complete the following number of workouts..." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QuQ-ml-MFU">
+                                <rect key="frame" x="144" y="82" width="312" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1od-c9-DFM"/>
+                                    <constraint firstAttribute="width" constant="312" id="hBH-rD-0nc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Z7-j3-r2z" firstAttribute="top" secondItem="QuQ-ml-MFU" secondAttribute="bottom" constant="18" id="0au-OZ-8sH"/>
+                            <constraint firstItem="7Z7-j3-r2z" firstAttribute="centerX" secondItem="n6k-2H-CaQ" secondAttribute="centerX" id="5K9-gX-9WL"/>
+                            <constraint firstItem="pWx-Ub-HWM" firstAttribute="centerX" secondItem="n6k-2H-CaQ" secondAttribute="centerX" id="644-a5-ePF"/>
+                            <constraint firstItem="QuQ-ml-MFU" firstAttribute="top" secondItem="JQp-bE-rHa" secondAttribute="bottom" constant="18" id="7hd-oF-5c2"/>
+                            <constraint firstItem="pWx-Ub-HWM" firstAttribute="leading" secondItem="n6k-2H-CaQ" secondAttribute="leadingMargin" id="EBk-Xh-2sp"/>
+                            <constraint firstItem="7Z7-j3-r2z" firstAttribute="centerX" secondItem="lae-aj-rtf" secondAttribute="centerX" id="KDs-tG-Ikb"/>
+                            <constraint firstItem="JQp-bE-rHa" firstAttribute="leading" secondItem="n6k-2H-CaQ" secondAttribute="leading" id="Nwu-Ve-Wbx"/>
+                            <constraint firstItem="lae-aj-rtf" firstAttribute="top" secondItem="7Z7-j3-r2z" secondAttribute="bottom" constant="37" id="OEt-pw-nJP"/>
+                            <constraint firstItem="lae-aj-rtf" firstAttribute="centerX" secondItem="n6k-2H-CaQ" secondAttribute="centerX" id="VKU-Jd-dJm"/>
+                            <constraint firstItem="QuQ-ml-MFU" firstAttribute="centerX" secondItem="7Z7-j3-r2z" secondAttribute="centerX" id="VgB-bD-K4c"/>
+                            <constraint firstItem="j31-Ho-rOH" firstAttribute="top" secondItem="pWx-Ub-HWM" secondAttribute="bottom" constant="33" id="g6D-UY-aWF"/>
+                            <constraint firstAttribute="trailing" secondItem="JQp-bE-rHa" secondAttribute="trailing" id="hz9-NS-OIY"/>
+                            <constraint firstItem="JQp-bE-rHa" firstAttribute="top" secondItem="dQ1-KT-LvG" secondAttribute="bottom" id="r2b-E6-ZM2"/>
+                            <constraint firstItem="pWx-Ub-HWM" firstAttribute="top" secondItem="lae-aj-rtf" secondAttribute="bottom" constant="23" id="ttT-RU-8Dr"/>
+                            <constraint firstItem="j31-Ho-rOH" firstAttribute="centerX" secondItem="pWx-Ub-HWM" secondAttribute="centerX" id="xQK-9q-Nvt"/>
+                            <constraint firstItem="lae-aj-rtf" firstAttribute="centerX" secondItem="pWx-Ub-HWM" secondAttribute="centerX" id="zXe-9T-UTc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="prizeField" destination="pWx-Ub-HWM" id="ggy-SY-8mg"/>
+                        <outlet property="workoutCountField" destination="7Z7-j3-r2z" id="bXo-Xv-ZCV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3gQ-mQ-pHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="-1080"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="yh3-mU-5So">
+            <objects>
+                <viewController id="fez-Qm-w0B" customClass="SettingsViewController" customModule="Bitcoin_Trainer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vXU-ph-EZV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Svi-GA-gUN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aSL-Cd-J5Q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BII-83-ImY">
+                                <rect key="frame" x="268" y="181" width="64" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="DC9-oc-Ib6"/>
+                                    <constraint firstAttribute="height" constant="21" id="Dal-Ca-ra4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNn-aM-jXq">
+                                <rect key="frame" x="279" y="283" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="grc-8L-qPT"/>
+                                    <constraint firstAttribute="width" constant="42" id="mkq-Np-sxL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pf-T2-CS2">
+                                <rect key="frame" x="262" y="378" width="76" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="gGI-uT-wSY"/>
+                                    <constraint firstAttribute="height" constant="21" id="wJm-Tj-OQP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3H-sB-Ky4">
+                                <rect key="frame" x="20" y="224" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0E9-bI-Og8">
+                                <rect key="frame" x="20" y="320" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="37y-K0-175">
+                                <rect key="frame" x="20" y="421" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0E9-bI-Og8" firstAttribute="top" secondItem="vXU-ph-EZV" secondAttribute="bottom" constant="256" id="0lc-y7-Vgz"/>
+                            <constraint firstItem="5pf-T2-CS2" firstAttribute="centerX" secondItem="aSL-Cd-J5Q" secondAttribute="centerX" id="F30-qr-vOo"/>
+                            <constraint firstItem="e3H-sB-Ky4" firstAttribute="leading" secondItem="37y-K0-175" secondAttribute="leading" id="FFM-X0-u39"/>
+                            <constraint firstItem="e3H-sB-Ky4" firstAttribute="leading" secondItem="aSL-Cd-J5Q" secondAttribute="leadingMargin" id="HtO-Z7-jt7"/>
+                            <constraint firstItem="e3H-sB-Ky4" firstAttribute="leading" secondItem="0E9-bI-Og8" secondAttribute="leading" id="MbU-B6-2Wb"/>
+                            <constraint firstItem="BII-83-ImY" firstAttribute="top" secondItem="vXU-ph-EZV" secondAttribute="bottom" constant="117" id="QvX-BT-8fs"/>
+                            <constraint firstItem="e3H-sB-Ky4" firstAttribute="top" secondItem="BII-83-ImY" secondAttribute="bottom" constant="22" id="S9a-6b-9pJ"/>
+                            <constraint firstItem="5pf-T2-CS2" firstAttribute="top" secondItem="vXU-ph-EZV" secondAttribute="bottom" constant="314" id="XT5-at-7GK"/>
+                            <constraint firstItem="37y-K0-175" firstAttribute="centerX" secondItem="aSL-Cd-J5Q" secondAttribute="centerX" id="c75-uf-IxT"/>
+                            <constraint firstItem="oNn-aM-jXq" firstAttribute="top" secondItem="e3H-sB-Ky4" secondAttribute="bottom" constant="29" id="cfP-0O-ujC"/>
+                            <constraint firstItem="oNn-aM-jXq" firstAttribute="centerX" secondItem="aSL-Cd-J5Q" secondAttribute="centerX" id="kp3-1d-IcQ"/>
+                            <constraint firstItem="BII-83-ImY" firstAttribute="centerX" secondItem="aSL-Cd-J5Q" secondAttribute="centerX" id="lvU-kI-JZX"/>
+                            <constraint firstItem="37y-K0-175" firstAttribute="top" secondItem="vXU-ph-EZV" secondAttribute="bottom" constant="357" id="tHe-bC-bW3"/>
+                            <constraint firstItem="e3H-sB-Ky4" firstAttribute="trailing" secondItem="0E9-bI-Og8" secondAttribute="trailing" id="wJm-DL-ohc"/>
+                            <constraint firstItem="0E9-bI-Og8" firstAttribute="centerX" secondItem="aSL-Cd-J5Q" secondAttribute="centerX" id="yBx-Rl-isT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressDisplay" destination="e3H-sB-Ky4" id="UDq-c7-bhI"/>
+                        <outlet property="guidDisplay" destination="0E9-bI-Og8" id="Pm9-5I-V9q"/>
+                        <outlet property="passwordDisplay" destination="37y-K0-175" id="cS1-IH-I59"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7lw-Mf-FWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="-344"/>
+        </scene>
+        <!--Send Bitcoin View Controller-->
+        <scene sceneID="gZ3-Sm-Zh5">
+            <objects>
+                <viewController id="i8b-OL-TE3" customClass="SendBitcoinViewController" customModule="Bitcoin_Trainer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fyT-1Q-JBu"/>
+                        <viewControllerLayoutGuide type="bottom" id="TD7-QT-lGk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yqk-14-lWw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDb-DZ-XB4">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Send Bitcoin" id="xaE-Xi-rnq">
+                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="bNT-6h-ngf">
+                                            <connections>
+                                                <action selector="dismissSendBitcoin:" destination="i8b-OL-TE3" id="mbq-du-UJk"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4B-NN-Kuv">
+                                <rect key="frame" x="268" y="152" width="64" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="tP3-f4-jDh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idY-4H-0CV">
+                                <rect key="frame" x="270" y="295" width="60" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sPt-9q-Nle">
+                                <rect key="frame" x="16" y="194" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8v-Nz-40G">
+                                <rect key="frame" x="234" y="342" width="133" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="133" id="C0n-Tb-bew"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDp-AB-M23">
+                                <rect key="frame" x="282" y="401" width="36" height="30"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendBitcoinButton:" destination="i8b-OL-TE3" eventType="touchUpInside" id="2O8-eE-lwC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="idY-4H-0CV" firstAttribute="centerX" secondItem="q8v-Nz-40G" secondAttribute="centerX" id="1zt-Nn-HWN"/>
+                            <constraint firstItem="w4B-NN-Kuv" firstAttribute="top" secondItem="tDb-DZ-XB4" secondAttribute="bottom" constant="88" id="AzB-9L-g1Z"/>
+                            <constraint firstItem="tDb-DZ-XB4" firstAttribute="top" secondItem="fyT-1Q-JBu" secondAttribute="bottom" id="EFV-uL-Hho"/>
+                            <constraint firstItem="tDb-DZ-XB4" firstAttribute="leading" secondItem="Yqk-14-lWw" secondAttribute="leading" id="GnH-oc-tIY"/>
+                            <constraint firstItem="tDb-DZ-XB4" firstAttribute="centerX" secondItem="w4B-NN-Kuv" secondAttribute="centerX" id="NF8-sz-qYD"/>
+                            <constraint firstItem="sPt-9q-Nle" firstAttribute="top" secondItem="w4B-NN-Kuv" secondAttribute="bottom" constant="21" id="Ne2-K3-x9V"/>
+                            <constraint firstItem="idY-4H-0CV" firstAttribute="top" secondItem="sPt-9q-Nle" secondAttribute="bottom" constant="71" id="Y3L-fl-VFa"/>
+                            <constraint firstAttribute="trailing" secondItem="tDb-DZ-XB4" secondAttribute="trailing" id="YZ4-nu-HOd"/>
+                            <constraint firstItem="sPt-9q-Nle" firstAttribute="leading" secondItem="Yqk-14-lWw" secondAttribute="leadingMargin" constant="-4" id="aN6-XS-3Ax"/>
+                            <constraint firstItem="q8v-Nz-40G" firstAttribute="top" secondItem="idY-4H-0CV" secondAttribute="bottom" constant="26" id="drN-oy-Qiy"/>
+                            <constraint firstItem="pDp-AB-M23" firstAttribute="top" secondItem="q8v-Nz-40G" secondAttribute="bottom" constant="29" id="jT8-I8-qaa"/>
+                            <constraint firstItem="w4B-NN-Kuv" firstAttribute="centerX" secondItem="sPt-9q-Nle" secondAttribute="centerX" id="sIY-KI-zfS"/>
+                            <constraint firstItem="sPt-9q-Nle" firstAttribute="centerX" secondItem="idY-4H-0CV" secondAttribute="centerX" id="sul-G4-y8G"/>
+                            <constraint firstItem="q8v-Nz-40G" firstAttribute="centerX" secondItem="pDp-AB-M23" secondAttribute="centerX" id="wx9-LN-LRW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressTextField" destination="sPt-9q-Nle" id="U3S-MC-5xl"/>
+                        <outlet property="amountTextField" destination="q8v-Nz-40G" id="fee-tX-ZGB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lOE-Vp-H0x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="738" y="526"/>
+        </scene>
+        <!--Receive Bitcoin View Controller-->
+        <scene sceneID="ee0-IX-CGx">
+            <objects>
+                <viewController id="UN1-jM-1ne" customClass="ReceiveBitcoinViewController" customModule="Bitcoin_Trainer" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gni-gr-caN"/>
+                        <viewControllerLayoutGuide type="bottom" id="LRZ-cH-i6L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xqg-QW-we3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXY-4r-3sc">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Receive Bitcoin" id="4Nr-Jl-FDB">
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="33X-kT-O7m">
+                                            <connections>
+                                                <action selector="dimissReceiveBitcoin:" destination="UN1-jM-1ne" id="rUg-bC-NVi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OPm-ab-pU9">
+                                <rect key="frame" x="20" y="192" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Bitcoin to this Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guc-g8-N4v">
+                                <rect key="frame" x="190" y="148" width="220" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="guc-g8-N4v" firstAttribute="top" secondItem="gni-gr-caN" secondAttribute="bottom" constant="128" id="1Jo-Ru-6Sn"/>
+                            <constraint firstAttribute="trailing" secondItem="dXY-4r-3sc" secondAttribute="trailing" id="P71-ml-Ywh"/>
+                            <constraint firstItem="dXY-4r-3sc" firstAttribute="top" secondItem="gni-gr-caN" secondAttribute="bottom" id="Rry-6Z-Ic5"/>
+                            <constraint firstItem="OPm-ab-pU9" firstAttribute="top" secondItem="guc-g8-N4v" secondAttribute="bottom" constant="23" id="Stq-bp-4FP"/>
+                            <constraint firstItem="guc-g8-N4v" firstAttribute="centerX" secondItem="Xqg-QW-we3" secondAttribute="centerX" id="Zp9-Zi-C8e"/>
+                            <constraint firstItem="OPm-ab-pU9" firstAttribute="centerX" secondItem="guc-g8-N4v" secondAttribute="centerX" id="ar1-6r-XjV"/>
+                            <constraint firstItem="OPm-ab-pU9" firstAttribute="leading" secondItem="Xqg-QW-we3" secondAttribute="leadingMargin" id="dSV-i1-fcY"/>
+                            <constraint firstItem="dXY-4r-3sc" firstAttribute="leading" secondItem="Xqg-QW-we3" secondAttribute="leading" id="xPK-v4-MQF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressDisplay" destination="OPm-ab-pU9" id="SL1-f9-C9R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="med-yl-G2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="526"/>
+        </scene>
+    </scenes>
+</document>
