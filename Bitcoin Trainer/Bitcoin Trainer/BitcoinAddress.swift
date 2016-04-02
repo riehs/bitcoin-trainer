@@ -67,7 +67,7 @@ class  BitcoinAddress: NSCoder  {
 
 		//Sometimes this function is called before a bitcoin Address can be created.
 		if address == "Error" {
-			return
+			completionHandler(success: true, errorString: nil)
 		} else {
 
 			let BASE_URL = "https://blockchain.info/address/\(BitcoinAddress.sharedInstance().address)"
@@ -82,8 +82,11 @@ class  BitcoinAddress: NSCoder  {
 			let request = NSURLRequest(URL: url)
 
 			let task = session.dataTaskWithRequest(request) {data, response, downloadError in
-				if let error = downloadError {
-						completionHandler(success: false, errorString: "Could not complete the request \(error)")
+				if downloadError != nil {
+
+					//Return a friendly error message.
+					completionHandler(success: false, errorString: "Cannot Connect to the Network")
+
 				} else {
 					let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options:		NSJSONReadingOptions.AllowFragments)) as! NSDictionary
 					let balance = parsedResult["final_balance"]!.stringValue
@@ -117,12 +120,18 @@ class  BitcoinAddress: NSCoder  {
 
 		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
 
-			if let error = downloadError {
-				completionHandler(success: false, errorString: "Could not complete the request \(error)")
+			//Failure due to network issues.
+			if downloadError != nil {
+				completionHandler(success: false, errorString: "Cannot connect to the network.")
+
 			} else {
 				let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as! NSDictionary
+
+				//Failed bitcoin transaction.
 				if parsedResult["message"] == nil {
-					completionHandler(success: false, errorString: "Could not complete the request.")
+					completionHandler(success: false, errorString: "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
+
+				//Success.
 				} else {
 					completionHandler(success: true, errorString: nil)
 				}

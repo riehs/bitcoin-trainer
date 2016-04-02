@@ -104,6 +104,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gKX-bP-35E">
+                                <rect key="frame" x="290" y="182" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -117,8 +120,10 @@
                             <constraint firstItem="P7l-UD-d6M" firstAttribute="top" secondItem="nge-P3-q1B" secondAttribute="bottom" constant="67" id="R2Y-s8-a2x"/>
                             <constraint firstItem="40A-iW-DmT" firstAttribute="centerX" secondItem="nge-P3-q1B" secondAttribute="centerX" id="TKQ-Bm-HLj"/>
                             <constraint firstItem="nAn-N2-0jk" firstAttribute="top" secondItem="xt9-9L-KXf" secondAttribute="bottom" constant="37" id="ULW-wV-KDz"/>
+                            <constraint firstItem="gKX-bP-35E" firstAttribute="centerX" secondItem="EiY-qn-5qd" secondAttribute="centerX" id="Z9h-Z1-rVk"/>
                             <constraint firstItem="nAn-N2-0jk" firstAttribute="bottom" secondItem="SPV-Fs-xon" secondAttribute="top" id="agL-jj-BV4"/>
                             <constraint firstItem="nAn-N2-0jk" firstAttribute="leading" secondItem="EiY-qn-5qd" secondAttribute="leading" id="byo-uE-SaW"/>
+                            <constraint firstItem="gKX-bP-35E" firstAttribute="top" secondItem="nge-P3-q1B" secondAttribute="bottom" constant="-20" id="dBn-tZ-9U0"/>
                             <constraint firstAttribute="trailing" secondItem="nAn-N2-0jk" secondAttribute="trailing" id="dt7-0S-MY9"/>
                             <constraint firstItem="6FG-dj-Fet" firstAttribute="top" secondItem="P7l-UD-d6M" secondAttribute="bottom" constant="31" id="fSN-Py-oev"/>
                             <constraint firstItem="xJm-gQ-GdA" firstAttribute="trailing" secondItem="P7l-UD-d6M" secondAttribute="trailing" id="fcJ-TQ-Dtq"/>
@@ -136,6 +141,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="gKX-bP-35E" id="REH-hJ-mVd"/>
                         <outlet property="balanceDisplay" destination="nge-P3-q1B" id="DBh-r5-LDg"/>
                         <outlet property="sendBitcoinButton" destination="P7l-UD-d6M" id="eGF-g8-j4j"/>
                         <outlet property="setGoalButton" destination="jJI-f3-wFB" id="K73-eT-7pM"/>

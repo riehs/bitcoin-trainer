@@ -50,7 +50,7 @@ class SendBitcoinViewController: UIViewController {
 			} else {
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
 					self.activityIndicator.hidden = true
-					self.errorAlert("Error", error: "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
+					self.errorAlert("Error", error: errorString!)
 				});
 			}
 		}

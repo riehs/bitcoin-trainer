@@ -22,6 +22,8 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 
     @IBOutlet weak var sendBitcoinButton: UIButton!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
 	var healthKitManager: HealthKitManager = HealthKitManager()
 	var workouts = [HKWorkout]()
 
@@ -60,6 +62,8 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 
 		setGoalButton.enabled = true
 		sendBitcoinButton.enabled = true
+		
+		activityIndicator.hidden = true
 
 		//Fetch goal from Core Data.
 		Goals.sharedInstance().goals = fetchGoal()
@@ -103,9 +107,21 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 				}
 			}
 		} else {
+
+			//Start the activity indicator.
+			activityIndicator.hidden = false
+
 			BitcoinAddress.sharedInstance().getBalance(balanceDisplay) { (success, errorString) in
+
+				//Stop the activity indicator.
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.activityIndicator.hidden = true
+				});
+
 				if !success {
-					self.balanceDisplay.text = errorString
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						self.balanceDisplay.text = errorString
+					});
 				}
 			}
 		}
@@ -121,13 +137,24 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 
 	//Refreshes goal and balance information when a view controller is dismissed.
 	public override func viewDidAppear(animated: Bool) {
-		
+
+		//Start the activity indicator.
+		activityIndicator.hidden = false
+
 		BitcoinAddress.sharedInstance().getBalance(balanceDisplay) { (success, errorString) in
+
+			//Stop the activity indicator.
+			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				self.activityIndicator.hidden = true
+			});
+
 			if !success {
-				self.balanceDisplay.text = errorString
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					self.balanceDisplay.text = errorString
+				});
 			}
 		}
-		
+
 		//Saves the Bitcoin address information.
 		NSKeyedArchiver.archiveRootObject(BitcoinAddress.sharedInstance(), toFile: filePath)
 
