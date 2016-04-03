@@ -462,21 +462,31 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bSt-rF-PoR">
+                                <rect key="frame" x="200" y="294" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="NeA-eY-muD"/>
+                                    <constraint firstAttribute="height" constant="200" id="gtY-3K-Fsg"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="guc-g8-N4v" firstAttribute="top" secondItem="gni-gr-caN" secondAttribute="bottom" constant="128" id="1Jo-Ru-6Sn"/>
+                            <constraint firstItem="LRZ-cH-i6L" firstAttribute="top" secondItem="bSt-rF-PoR" secondAttribute="bottom" constant="106" id="NK9-3d-qpI"/>
                             <constraint firstAttribute="trailing" secondItem="dXY-4r-3sc" secondAttribute="trailing" id="P71-ml-Ywh"/>
                             <constraint firstItem="dXY-4r-3sc" firstAttribute="top" secondItem="gni-gr-caN" secondAttribute="bottom" id="Rry-6Z-Ic5"/>
                             <constraint firstItem="OPm-ab-pU9" firstAttribute="top" secondItem="guc-g8-N4v" secondAttribute="bottom" constant="23" id="Stq-bp-4FP"/>
                             <constraint firstItem="guc-g8-N4v" firstAttribute="centerX" secondItem="Xqg-QW-we3" secondAttribute="centerX" id="Zp9-Zi-C8e"/>
                             <constraint firstItem="OPm-ab-pU9" firstAttribute="centerX" secondItem="guc-g8-N4v" secondAttribute="centerX" id="ar1-6r-XjV"/>
                             <constraint firstItem="OPm-ab-pU9" firstAttribute="leading" secondItem="Xqg-QW-we3" secondAttribute="leadingMargin" id="dSV-i1-fcY"/>
+                            <constraint firstItem="bSt-rF-PoR" firstAttribute="centerX" secondItem="OPm-ab-pU9" secondAttribute="centerX" id="qev-5S-BhY"/>
                             <constraint firstItem="dXY-4r-3sc" firstAttribute="leading" secondItem="Xqg-QW-we3" secondAttribute="leading" id="xPK-v4-MQF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addressDisplay" destination="OPm-ab-pU9" id="SL1-f9-C9R"/>
+                        <outlet property="imgQRCode" destination="bSt-rF-PoR" id="Nyd-fX-ZKb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="med-yl-G2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
