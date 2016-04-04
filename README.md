@@ -1,5 +1,7 @@
 # Bitcoin Trainer
 
+Author: Daniel Riehs
+
 Set a workout goal in Bitcoin Trainer, and let a bitcoin reward be your motivation!
 
 The first time you launch the app, a unique Bitcoin address is generated and saved in the app. Click on “Load Bitcoin” to see the address. Send some bitcoin to the address to be your reward.
