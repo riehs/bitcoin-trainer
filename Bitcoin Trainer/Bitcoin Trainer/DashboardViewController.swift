@@ -197,7 +197,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 					if Int32(self.workouts.count) >= Goals.sharedInstance().goals[0].workoutCount {
 						self.setGoalButton.enabled = true
 						self.sendBitcoinButton.enabled = true
-						self.statusDisplay.text = "You Completed \(Goals.sharedInstance().goals[0].workoutCount) workouts. Buy your \(Goals.sharedInstance().goals[0].prize)!"
+						self.statusDisplay.text = "You completed \(Goals.sharedInstance().goals[0].workoutCount) workouts. Buy your \(Goals.sharedInstance().goals[0].prize)!"
 					
 					//The goal has not yet been met.
 					} else {
