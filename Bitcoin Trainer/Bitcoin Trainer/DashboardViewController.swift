@@ -183,7 +183,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 				print("Workouts read successfully!")
 			}
 
-			//Save workouts into arra.
+			//Save workouts into array.
 			self.workouts = results as! [HKWorkout]
 			
 			//Refresh tableview in main thread.
