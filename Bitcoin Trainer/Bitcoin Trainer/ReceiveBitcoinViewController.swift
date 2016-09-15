@@ -13,8 +13,8 @@ class ReceiveBitcoinViewController: UIViewController {
     @IBOutlet weak var addressDisplay: UITextField!
     @IBOutlet weak var imgQRCode: UIImageView!
 
-    @IBAction func dimissReceiveBitcoin(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func dimissReceiveBitcoin(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 
 	var qrCodeImage: CIImage!
@@ -25,7 +25,7 @@ class ReceiveBitcoinViewController: UIViewController {
 		addressDisplay.text = BitcoinAddress.sharedInstance().address
 
 		//Convert the Bitcoin address to a QR code.
-		let data = addressDisplay.text!.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
+		let data = addressDisplay.text!.data(using: String.Encoding.isoLatin1, allowLossyConversion: false)
 
 		let filter = CIFilter(name: "CIQRCodeGenerator")
 
@@ -41,10 +41,10 @@ class ReceiveBitcoinViewController: UIViewController {
 		let scaleY = imgQRCode.frame.size.height / qrCodeImage.extent.size.height
 
 		//Apply scale factor to image.
-		let transformedImage = qrCodeImage.imageByApplyingTransform(CGAffineTransformMakeScale(scaleX, scaleY))
+		let transformedImage = qrCodeImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
 
 		//Convert the Core Image to a UIImage.
-		imgQRCode.image = UIImage(CIImage: transformedImage)
+		imgQRCode.image = UIImage(ciImage: transformedImage)
 	}
 
 

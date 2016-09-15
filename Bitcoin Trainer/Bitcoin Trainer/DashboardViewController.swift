@@ -10,7 +10,7 @@ import UIKit
 import HealthKit
 import CoreData
 
-public class DashboardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class DashboardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -28,10 +28,10 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	var workouts = [HKWorkout]()
 
 	//Workout dates will be displayed in this format.
-	lazy var dateFormatter:NSDateFormatter = {
-		let formatter = NSDateFormatter()
-		formatter.timeStyle = .ShortStyle
-		formatter.dateStyle = .MediumStyle
+	lazy var dateFormatter:DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.timeStyle = .short
+		formatter.dateStyle = .medium
 		return formatter;
 	}()
 
@@ -48,29 +48,29 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	
 	//Defining the file path where the archived data will be stored by the NSKeyedArchiver.
 	var filePath: String {
-		let manager = NSFileManager.defaultManager()
-		let url = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
-		return url!.URLByAppendingPathComponent("bitcoinAddress").path!
+		let manager = FileManager.default
+		let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+		return url!.appendingPathComponent("bitcoinAddress").path
 	}
 
 
-	public override func viewDidLoad() {
+	open override func viewDidLoad() {
 		super.viewDidLoad()
 	
 		//Calls the applicationWillEnterForeground function when the app transitions out of the background state. Necessary for refreshing workout data.
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillEnterForeground(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
 
-		setGoalButton.enabled = true
-		sendBitcoinButton.enabled = true
+		setGoalButton.isEnabled = true
+		sendBitcoinButton.isEnabled = true
 		
-		activityIndicator.hidden = true
+		activityIndicator.isHidden = true
 
 		//Fetch goal from Core Data.
 		Goals.sharedInstance().goals = fetchGoal()
 
 		//If the app is being run for the first time, and there is no goal in the array, a dummy goal is created.
 		if Goals.sharedInstance().goals.count == 0 {
-			Goals.sharedInstance().goals.append(Goal(workoutCount: 0, prize: "No Goal Set", date: NSDate(),context: sharedContext))
+			Goals.sharedInstance().goals.append(Goal(workoutCount: 0, prize: "No Goal Set", date: Date(),context: sharedContext))
 			CoreDataStackManager.sharedInstance().saveContext()
 			self.statusDisplay.text = Goals.sharedInstance().goals[0].prize
 		}
@@ -90,7 +90,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 		}
 
 		//Unarchiving any saved Bitcoin address information that was saved with NSCoding.
-		if let bitcoinAddress = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? BitcoinAddress {
+		if let bitcoinAddress = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? BitcoinAddress {
 			BitcoinAddress.sharedInstance().setProperties(bitcoinAddress.password, address: bitcoinAddress.address, guid: bitcoinAddress.guid)
 			
 		}
@@ -99,7 +99,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 		if BitcoinAddress.sharedInstance().address == "Error" {
 			BitcoinAddress.sharedInstance().createProperties() { (success, errorString) in
 				if success {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					DispatchQueue.main.async(execute: { () -> Void in
 						
 						//A new Bitcoin address will always have a balance of 0.
 						self.balanceDisplay.text = "0"
@@ -109,17 +109,17 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 		} else {
 
 			//Start the activity indicator.
-			activityIndicator.hidden = false
+			activityIndicator.isHidden = false
 
 			BitcoinAddress.sharedInstance().getBalance(balanceDisplay) { (success, errorString) in
 
 				//Stop the activity indicator.
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					self.activityIndicator.hidden = true
+				DispatchQueue.main.async(execute: { () -> Void in
+					self.activityIndicator.isHidden = true
 				});
 
 				if !success {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					DispatchQueue.main.async(execute: { () -> Void in
 						self.balanceDisplay.text = errorString
 					});
 				}
@@ -128,7 +128,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	}
 
 
-	public override func viewWillAppear(animated: Bool) {
+	open override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
 		refreshDashboard()
@@ -136,20 +136,20 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 
 
 	//Refreshes goal and balance information when a view controller is dismissed.
-	public override func viewDidAppear(animated: Bool) {
+	open override func viewDidAppear(_ animated: Bool) {
 
 		//Start the activity indicator.
-		activityIndicator.hidden = false
+		activityIndicator.isHidden = false
 
 		BitcoinAddress.sharedInstance().getBalance(balanceDisplay) { (success, errorString) in
 
 			//Stop the activity indicator.
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
-				self.activityIndicator.hidden = true
+			DispatchQueue.main.async(execute: { () -> Void in
+				self.activityIndicator.isHidden = true
 			});
 
 			if !success {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+				DispatchQueue.main.async(execute: { () -> Void in
 					self.balanceDisplay.text = errorString
 				});
 			}
@@ -163,19 +163,19 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	}
 
 
-	func applicationWillEnterForeground(notification: NSNotification) {
+	func applicationWillEnterForeground(_ notification: Notification) {
 		refreshDashboard()
 	}
 
 
 	//Refreshes workout data and checks to see if the goal has been met.
-	public func refreshDashboard() {
+	open func refreshDashboard() {
 
 		//Read workouts from HealthKit.
 		healthKitManager.readWorkouts({ (results, error) -> Void in
 			if( error != nil )
 			{
-				print("Error reading workouts: \(error.localizedDescription)")
+				print("Error reading workouts: \(error!.localizedDescription)")
 				return;
 			}
 			else
@@ -187,7 +187,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 			self.workouts = results as! [HKWorkout]
 			
 			//Refresh tableview in main thread.
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			DispatchQueue.main.async(execute: { () -> Void in
 				self.tableView.reloadData()
 				
 				//If a goal has been set, check to see if it has been met.
@@ -195,14 +195,14 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 					
 					//The goal has been met.
 					if Int32(self.workouts.count) >= Goals.sharedInstance().goals[0].workoutCount {
-						self.setGoalButton.enabled = true
-						self.sendBitcoinButton.enabled = true
+						self.setGoalButton.isEnabled = true
+						self.sendBitcoinButton.isEnabled = true
 						self.statusDisplay.text = "You completed \(Goals.sharedInstance().goals[0].workoutCount) workouts. Buy your \(Goals.sharedInstance().goals[0].prize)!"
 					
 					//The goal has not yet been met.
 					} else {
-						self.setGoalButton.enabled = false
-						self.sendBitcoinButton.enabled = false
+						self.setGoalButton.isEnabled = false
+						self.sendBitcoinButton.isEnabled = false
 						self.statusDisplay.text = "Complete \(Goals.sharedInstance().goals[0].workoutCount) workouts and buy your \(Goals.sharedInstance().goals[0].prize)!"
 					}
 				}
@@ -212,18 +212,18 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	}
 
 
-	public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return  workouts.count
 	}
 
 
-	public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCellWithIdentifier("workoutcellid", forIndexPath: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "workoutcellid", for: indexPath)
 
 		//Get workout for the row. Display the workout date.
-		let workout  = workouts[indexPath.row]
-		let startDate = dateFormatter.stringFromDate(workout.startDate)
+		let workout  = workouts[(indexPath as NSIndexPath).row]
+		let startDate = dateFormatter.string(from: workout.startDate)
 		cell.textLabel!.text = startDate
 
 		return cell
@@ -233,13 +233,13 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	//Loads the goal from Core Data.
 	func fetchGoal() -> [Goal] {
 
-		let error: NSErrorPointer = nil
-		let fetchRequest = NSFetchRequest(entityName: "Goal")
+		let error: NSErrorPointer? = nil
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
 		let results: [AnyObject]?
 		do {
-			results = try sharedContext.executeFetchRequest(fetchRequest)
+			results = try sharedContext.fetch(fetchRequest)
 		} catch let error1 as NSError {
-			error.memory = error1
+			error??.pointee = error1
 			results = nil
 		}
 
@@ -251,7 +251,7 @@ public class DashboardViewController: UIViewController, UITableViewDataSource, U
 	}
 
 
-	public override func didReceiveMemoryWarning() {
+	open override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 	}
 }

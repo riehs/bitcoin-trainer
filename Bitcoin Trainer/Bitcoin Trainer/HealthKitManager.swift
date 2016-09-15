@@ -14,7 +14,7 @@ class HealthKitManager {
 	let healthKitStore:HKHealthStore = HKHealthStore()
 
 
-	func authorizeHealthKit(completionHandler: ((success: Bool, errorString: String!) -> Void)!) {
+	func authorizeHealthKit(_ completionHandler: ((_ success: Bool, _ errorString: String?) -> Void)!) {
 
 		//The app only needs authorization to read data. No data is ever written back to HealthKit.
 		let healthKitTypesToRead: Set<HKObjectType> = Set([ HKObjectType.workoutType() ])
@@ -23,29 +23,29 @@ class HealthKitManager {
 		if !HKHealthStore.isHealthDataAvailable()
 		{
 			let error = "HealthKit is not available in this device."
-			completionHandler(success: false, errorString: error)
+			completionHandler?(false, error)
 		}
 
 		//Request HealthKit authorization.
-		healthKitStore.requestAuthorizationToShareTypes(nil, readTypes: healthKitTypesToRead) { (success, errorString) -> Void in
+		healthKitStore.requestAuthorization(toShare: nil, read: healthKitTypesToRead) { (success, errorString) -> Void in
 
 			//The app is not told if access is denied, so teh completion handler always returns success.
-			completionHandler(success: true, errorString: nil)
+			completionHandler?(true, nil)
 		}
 	}
 
 
 	//Read workouts that will count toward the goal.
-	func readWorkouts(completionHandler: (([AnyObject]!, NSError!) -> Void)!) {
+	func readWorkouts(_ completionHandler: (([AnyObject]?, NSError?) -> Void)!) {
 
 		//The current date and time.
-		let endDate = NSDate()
+		let endDate = Date()
 
 		//The date the goal was created.
 		let startDate = Goals.sharedInstance().goals[0].date
 
 		//Only include items that occured after the start date.
-		let predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .StrictStartDate)
+		let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate, options: .strictStartDate)
 
 		//Order the workouts by date:
 		let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: false)
@@ -57,10 +57,10 @@ class HealthKitManager {
 			if let queryError = error {
 				print("There was an error while reading the samples: \(queryError.localizedDescription)")
 			}
-			completionHandler(results,error)
+			completionHandler?(results,error as NSError?)
 		}
 
 		//Execute the query:
-		healthKitStore.executeQuery(sampleQuery)
+		healthKitStore.execute(sampleQuery)
 	}
 }

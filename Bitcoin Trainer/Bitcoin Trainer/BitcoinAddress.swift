@@ -24,7 +24,7 @@ class  BitcoinAddress: NSCoder  {
 
 
 	//Uses blockchain.info to create a bitcoin wallet.
-	func createProperties(completionHandler: (success: Bool, errorString: String?) -> Void) {
+	func createProperties(_ completionHandler: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
 
 		password = randomStringWithLength(10)
 
@@ -35,27 +35,27 @@ class  BitcoinAddress: NSCoder  {
 			"password": password,
 			]
 
-		let session = NSURLSession.sharedSession()
-		let urlString = BASE_URL + escapedParameters(methodArguments)
-		let url = NSURL(string: urlString)!
-		let request = NSURLRequest(URL: url)
+		let session = URLSession.shared
+		let urlString = BASE_URL + escapedParameters(methodArguments as [String : AnyObject])
+		let url = URL(string: urlString)!
+		let request = URLRequest(url: url)
 
-		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+		let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
 			if let error = downloadError {
-				completionHandler(success: false, errorString: "Could not complete the request \(error)")
+				completionHandler(false, "Could not complete the request \(error)")
 			} else {
-				let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as! NSDictionary
+				let parsedResult = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)) as! NSDictionary
 				self.address = (parsedResult["address"] as? String)!
 				
 				self.guid = (parsedResult["guid"] as? String)!
-				completionHandler(success: true, errorString: nil)
+				completionHandler(true, nil)
 			}
-		}
+		}) 
 		task.resume()
 	}
 
 	//Used when the properties already exist and are being restored from NSCoding.
-	func setProperties(password: String, address: String, guid: String) {
+	func setProperties(_ password: String, address: String, guid: String) {
 		self.password = password
 		self.address = address
 		self.guid = guid
@@ -63,11 +63,11 @@ class  BitcoinAddress: NSCoder  {
 
 
 	//Get the balance of the Bitcoin address.
-	func getBalance(balanceDisplay: UILabel, completionHandler: (success: Bool, errorString: String?) -> Void) {
+	func getBalance(_ balanceDisplay: UILabel, completionHandler: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
 
 		//Sometimes this function is called before a bitcoin Address can be created.
 		if address == "Error" {
-			completionHandler(success: true, errorString: nil)
+			completionHandler(true, nil)
 		} else {
 
 			let BASE_URL = "https://blockchain.info/address/\(BitcoinAddress.sharedInstance().address)"
@@ -76,33 +76,33 @@ class  BitcoinAddress: NSCoder  {
 				"format": "json",
 				]
 
-			let session = NSURLSession.sharedSession()
-			let urlString = BASE_URL + self.escapedParameters(methodArguments)
-			let url = NSURL(string: urlString)!
-			let request = NSURLRequest(URL: url)
+			let session = URLSession.shared
+			let urlString = BASE_URL + self.escapedParameters(methodArguments as [String : AnyObject])
+			let url = URL(string: urlString)!
+			let request = URLRequest(url: url)
 
-			let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+			let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
 				if downloadError != nil {
 
 					//Return a friendly error message.
-					completionHandler(success: false, errorString: "Cannot Connect to the Network")
+					completionHandler(false, "Cannot Connect to the Network")
 
 				} else {
-					let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options:		NSJSONReadingOptions.AllowFragments)) as! NSDictionary
-					let balance = parsedResult["final_balance"]!.stringValue
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						balanceDisplay.text = String(balance)
+					let parsedResult = (try! JSONSerialization.jsonObject(with: data!, options:		JSONSerialization.ReadingOptions.allowFragments)) as! NSDictionary
+					let balance = (parsedResult["final_balance"]! as AnyObject).stringValue
+					DispatchQueue.main.async(execute: { () -> Void in
+						balanceDisplay.text = balance
 					});
-					completionHandler(success: true, errorString: nil)
+					completionHandler(true, nil)
 				}
-			}
+			}) 
 			task.resume()
 		}
 	}
 
 
 	//Send bitcoin to an external address.
-	func sendBitcoin(address: String, amount: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+	func sendBitcoin(_ address: String, amount: String, completionHandler: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
 
 		let BASE_URL = "https://blockchain.info/merchant/\(BitcoinAddress.sharedInstance().guid)/payment"
 
@@ -113,36 +113,36 @@ class  BitcoinAddress: NSCoder  {
 			"amount": amount
 		]
 
-		let session = NSURLSession.sharedSession()
-		let urlString = BASE_URL + escapedParameters(methodArguments)
-		let url = NSURL(string: urlString)!
-		let request = NSURLRequest(URL: url)
+		let session = URLSession.shared
+		let urlString = BASE_URL + escapedParameters(methodArguments as [String : AnyObject])
+		let url = URL(string: urlString)!
+		let request = URLRequest(url: url)
 
-		let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+		let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
 
 			//Failure due to network issues.
 			if downloadError != nil {
-				completionHandler(success: false, errorString: "Cannot connect to the network.")
+				completionHandler(false, "Cannot connect to the network.")
 
 			} else {
-				let parsedResult = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as! NSDictionary
+				let parsedResult = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)) as! NSDictionary
 
 				//Failed bitcoin transaction.
 				if parsedResult["message"] == nil {
-					completionHandler(success: false, errorString: "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
+					completionHandler(false, "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
 
 				//Success.
 				} else {
-					completionHandler(success: true, errorString: nil)
+					completionHandler(true, nil)
 				}
 			}
-		}
+		}) 
 		task.resume()
 	}
 
 
 	/* Helper function: Given a dictionary of parameters, convert to a string for a url */
-	func escapedParameters(parameters: [String: AnyObject]) -> String {
+	func escapedParameters(_ parameters: [String: AnyObject]) -> String {
 
 		var urlVars = [String]()
 
@@ -152,19 +152,19 @@ class  BitcoinAddress: NSCoder  {
 			let stringValue = "\(value)"
 
 			/* FIX: Replace spaces with '+' */
-			let replaceSpaceValue = stringValue.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+			let replaceSpaceValue = stringValue.replacingOccurrences(of: " ", with: "+", options: NSString.CompareOptions.literal, range: nil)
 
 			/* Append it */
 			urlVars += [key + "=" + "\(replaceSpaceValue)"]
 		}
 
-		return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
+		return (!urlVars.isEmpty ? "?" : "") + urlVars.joined(separator: "&")
 	}
 
 
 	//Creates a password to send to blockchain.info.
 	//http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
-	func randomStringWithLength(length: Int) -> String {
+	func randomStringWithLength(_ length: Int) -> String {
 
 		let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 		let allowedCharsCount = UInt32(allowedChars.characters.count)
@@ -172,7 +172,7 @@ class  BitcoinAddress: NSCoder  {
 
 		for _ in (0..<length) {
 			let randomNum = Int(arc4random_uniform(allowedCharsCount))
-			let newCharacter = allowedChars[allowedChars.startIndex.advancedBy(randomNum)]
+			let newCharacter = allowedChars[allowedChars.characters.index(allowedChars.startIndex, offsetBy: randomNum)]
 			randomString += String(newCharacter)
 		}
 
@@ -183,18 +183,18 @@ class  BitcoinAddress: NSCoder  {
 	//The bitcoin address information is persisted with NSCoding, not Core Data:
 	
 	//Required for the class to conform to the NSCoding protocol.
-	func encodeWithCoder(aCoder: NSCoder!) {
-		aCoder.encodeObject(password, forKey:"password")
-		aCoder.encodeObject(address, forKey:"address")
-		aCoder.encodeObject(guid, forKey:"guid")
+	func encodeWithCoder(_ aCoder: NSCoder!) {
+		aCoder.encode(password, forKey:"password")
+		aCoder.encode(address, forKey:"address")
+		aCoder.encode(guid, forKey:"guid")
 	}
 
 
 	//Required for the class to conform to the NSCoding protocol.
 	init(coder aDecoder: NSCoder!) {
-		password = aDecoder.decodeObjectForKey("password") as! String
-		address = aDecoder.decodeObjectForKey("address") as! String
-		guid = aDecoder.decodeObjectForKey("guid") as! String
+		password = aDecoder.decodeObject(forKey: "password") as! String
+		address = aDecoder.decodeObject(forKey: "address") as! String
+		guid = aDecoder.decodeObject(forKey: "guid") as! String
 	}
 
 

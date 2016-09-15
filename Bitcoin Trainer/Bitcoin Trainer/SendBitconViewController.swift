@@ -16,13 +16,13 @@ class SendBitcoinViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 	//The user presses the Cancel button.
-    @IBAction func dismissSendBitcoin(sender: AnyObject) {
+    @IBAction func dismissSendBitcoin(_ sender: AnyObject) {
 
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 
-    @IBAction func sendBitcoinButton(sender: AnyObject) {
+    @IBAction func sendBitcoinButton(_ sender: AnyObject) {
 
         sendBitcoin(addressTextField.text!, amount: amountTextField.text!)
     }
@@ -32,24 +32,24 @@ class SendBitcoinViewController: UIViewController {
 		super.viewDidLoad()
 		
 		//The activity indicator is hidden when the view first loads.
-		activityIndicator.hidden = true
+		activityIndicator.isHidden = true
 	}
 
 
-    func sendBitcoin(address: String, amount: String) {
+    func sendBitcoin(_ address: String, amount: String) {
 		
 		//Make the activity indicator visible.
-		activityIndicator.hidden = false
+		activityIndicator.isHidden = false
 		
 		BitcoinAddress.sharedInstance().sendBitcoin(address, amount: amount) { (success, errorString) in
 			if  success {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					self.activityIndicator.hidden = true
-					self.dismissViewControllerAnimated(true, completion: nil)
+				DispatchQueue.main.async(execute: { () -> Void in
+					self.activityIndicator.isHidden = true
+					self.dismiss(animated: true, completion: nil)
 				});
 			} else {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					self.activityIndicator.hidden = true
+				DispatchQueue.main.async(execute: { () -> Void in
+					self.activityIndicator.isHidden = true
 					self.errorAlert("Error", error: errorString!)
 				});
 			}
@@ -58,10 +58,10 @@ class SendBitcoinViewController: UIViewController {
 
 
 	//Creates an Alert-style error message.
-	func errorAlert(title: String, error: String) {
-		let controller: UIAlertController = UIAlertController(title: title, message: error, preferredStyle: .Alert)
-		controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-		presentViewController(controller, animated: true, completion: nil)
+	func errorAlert(_ title: String, error: String) {
+		let controller: UIAlertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
+		controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+		present(controller, animated: true, completion: nil)
 	}
 
 
