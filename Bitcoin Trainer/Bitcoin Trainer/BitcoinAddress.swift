@@ -12,10 +12,10 @@ import UIKit
 class  BitcoinAddress: NSCoder  {
 
 	let API_KEY = "SET API KEY HERE."
+	let SECRET_PIN = "SET PIN HERE."
 
 	var address = "Error"
-	var guid = "Error"
-	var password = "Error"
+	var label = "Error"
 
 
 	override init() {
@@ -23,16 +23,13 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
-	//Uses blockchain.info to create a bitcoin wallet.
+	//Uses block.io to create a bitcoin wallet.
 	func createProperties(_ completionHandler: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
 
-		password = randomStringWithLength(10)
-
-		let BASE_URL = "https://blockchain.info/api/v2/create_wallet"
+		let BASE_URL = "https://block.io/api/v2/get_new_address/"
 
 		let methodArguments = [
-			"api_code": API_KEY,
-			"password": password,
+			"api_key": API_KEY
 			]
 
 		let session = URLSession.shared
@@ -45,9 +42,8 @@ class  BitcoinAddress: NSCoder  {
 				completionHandler(false, "Could not complete the request \(error)")
 			} else {
 				let parsedResult = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)) as! NSDictionary
-				self.address = (parsedResult["address"] as? String)!
-				
-				self.guid = (parsedResult["guid"] as? String)!
+				self.address = (parsedResult.value(forKey: "data") as! NSDictionary).value(forKey: "address") as! String
+				self.label = (parsedResult.value(forKey: "data") as! NSDictionary).value(forKey: "label") as! String
 				completionHandler(true, nil)
 			}
 		}) 
@@ -55,10 +51,9 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 	//Used when the properties already exist and are being restored from NSCoding.
-	func setProperties(_ password: String, address: String, guid: String) {
-		self.password = password
+	func setProperties(_ address: String, label: String) {
 		self.address = address
-		self.guid = guid
+		self.label = label
 	}
 
 
@@ -104,13 +99,14 @@ class  BitcoinAddress: NSCoder  {
 	//Send bitcoin to an external address.
 	func sendBitcoin(_ address: String, amount: String, completionHandler: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
 
-		let BASE_URL = "https://blockchain.info/merchant/\(BitcoinAddress.sharedInstance().guid)/payment"
+		let BASE_URL = "https://block.io/api/v2/withdraw_from_addresses/"
 
 		let methodArguments = [
-			"api_code": API_KEY,
-			"password": BitcoinAddress.sharedInstance().password,
-			"to": address,
-			"amount": amount
+			"api_key": API_KEY,
+			"from_addresses": BitcoinAddress.sharedInstance().address,
+			"to_addresses": address,
+			"amounts": amount,
+			"pin": SECRET_PIN
 		]
 
 		let session = URLSession.shared
@@ -128,8 +124,8 @@ class  BitcoinAddress: NSCoder  {
 				let parsedResult = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)) as! NSDictionary
 
 				//Failed bitcoin transaction.
-				if parsedResult["message"] == nil {
-					completionHandler(false, "Cannot send Bitcoin. Confirm that the address is correct and your balance is high enough to allow for a 10000 satoshi fee.")
+				if parsedResult["status"] as! String == "fail" {
+					completionHandler(false, (parsedResult.value(forKey: "data") as! NSDictionary).value(forKey: "error_message") as! String?)
 
 				//Success.
 				} else {
@@ -162,39 +158,19 @@ class  BitcoinAddress: NSCoder  {
 	}
 
 
-	//Creates a password to send to blockchain.info.
-	//http://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
-	func randomStringWithLength(_ length: Int) -> String {
-
-		let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-		let allowedCharsCount = UInt32(allowedChars.characters.count)
-		var randomString = ""
-
-		for _ in (0..<length) {
-			let randomNum = Int(arc4random_uniform(allowedCharsCount))
-			let newCharacter = allowedChars[allowedChars.characters.index(allowedChars.startIndex, offsetBy: randomNum)]
-			randomString += String(newCharacter)
-		}
-
-		return randomString
-	}
-
-
 	//The bitcoin address information is persisted with NSCoding, not Core Data:
-	
+
 	//Required for the class to conform to the NSCoding protocol.
 	func encodeWithCoder(_ aCoder: NSCoder!) {
-		aCoder.encode(password, forKey:"password")
 		aCoder.encode(address, forKey:"address")
-		aCoder.encode(guid, forKey:"guid")
+		aCoder.encode(label, forKey:"label")
 	}
 
 
 	//Required for the class to conform to the NSCoding protocol.
 	init(coder aDecoder: NSCoder!) {
-		password = aDecoder.decodeObject(forKey: "password") as! String
 		address = aDecoder.decodeObject(forKey: "address") as! String
-		guid = aDecoder.decodeObject(forKey: "guid") as! String
+		label = aDecoder.decodeObject(forKey: "label") as! String
 	}
 
 

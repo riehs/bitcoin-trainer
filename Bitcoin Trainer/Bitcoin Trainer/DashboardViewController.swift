@@ -91,7 +91,7 @@ open class DashboardViewController: UIViewController, UITableViewDataSource, UIT
 
 		//Unarchiving any saved Bitcoin address information that was saved with NSCoding.
 		if let bitcoinAddress = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? BitcoinAddress {
-			BitcoinAddress.sharedInstance().setProperties(bitcoinAddress.password, address: bitcoinAddress.address, guid: bitcoinAddress.guid)
+			BitcoinAddress.sharedInstance().setProperties(bitcoinAddress.address, label: bitcoinAddress.label)
 			
 		}
 

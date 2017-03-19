@@ -11,18 +11,14 @@ import UIKit
 class SettingsViewController: UIViewController {
 
 	@IBOutlet weak var addressDisplay: UITextField!
-    @IBOutlet weak var guidDisplay: UITextField!
-    @IBOutlet weak var passwordDisplay: UITextField!
+    @IBOutlet weak var labelDisplay: UITextField!
 
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
 
-		//Using these three pieces of information, a user can restore lost Bitcoin at blockchain.info.
-
 		addressDisplay.text = BitcoinAddress.sharedInstance().address
-		guidDisplay.text = BitcoinAddress.sharedInstance().guid
-		passwordDisplay.text = BitcoinAddress.sharedInstance().password
+		labelDisplay.text = BitcoinAddress.sharedInstance().label
 	}
 
 
