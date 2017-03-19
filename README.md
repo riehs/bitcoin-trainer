@@ -12,10 +12,10 @@ When you finish setting your goal, your bitcoin is locked in the app, and cannot
 
 Complete workouts by using your Apple Watch, or a third-party app such as Runkeeper. You can also manually enter workouts in the Health app by browsing to Health Data > Fitness > Workouts > Add Data Point.
 
-When you meet your goal, your bitcoin becomes accessible again. Find a store that accepts bitcoin, and buy your treat! (Your bitcoin balance is displayed in satoshis. The app will automatically include a 10000 satoshi fee when you send bitcoin, so take this into account when deciding how much to send.)
+When you meet your goal, your bitcoin becomes accessible again. Find a store that accepts bitcoin, and buy your treat!
 
 --
 
 Setup Instructions:
 
-Before starting the app, you’ll need to replace 'SET API KEY HERE.' in BitcoinAddress.swift with an API key from blockchain.info: https://blockchain.info/api/api_create_code
+Before starting the app, you’ll need to replace 'SET API KEY HERE.' and 'SET PIN HERE.' in BitcoinAddress.swift with an API key and pin from block.io: https://block.io/api/
