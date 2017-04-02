@@ -84,7 +84,7 @@ open class DashboardViewController: UIViewController, UITableViewDataSource, UIT
 			{
 				print("HealthKit authorization denied!")
 				if error != nil {
-					print("\(error)")
+					print("\(String(describing: error))")
 				}
 			}
 		}
@@ -244,7 +244,7 @@ open class DashboardViewController: UIViewController, UITableViewDataSource, UIT
 		}
 
 		if error != nil {
-			print("Error in fetchGoal(): \(error)")
+			print("Error in fetchGoal(): \(String(describing: error))")
 		}
 
 		return results as! [Goal]
