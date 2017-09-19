@@ -41,7 +41,7 @@ class ReceiveBitcoinViewController: UIViewController {
 		let scaleY = imgQRCode.frame.size.height / qrCodeImage.extent.size.height
 
 		//Apply scale factor to image.
-		let transformedImage = qrCodeImage.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
+		let transformedImage = qrCodeImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
 
 		//Convert the Core Image to a UIImage.
 		imgQRCode.image = UIImage(ciImage: transformedImage)
