@@ -163,7 +163,7 @@ open class DashboardViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 
-	func applicationWillEnterForeground(_ notification: Notification) {
+	@objc func applicationWillEnterForeground(_ notification: Notification) {
 		refreshDashboard()
 	}
 

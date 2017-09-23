@@ -161,14 +161,14 @@ class  BitcoinAddress: NSCoder  {
 	//The bitcoin address information is persisted with NSCoding, not Core Data:
 
 	//Required for the class to conform to the NSCoding protocol.
-	func encodeWithCoder(_ aCoder: NSCoder!) {
+	@objc func encodeWithCoder(_ aCoder: NSCoder!) {
 		aCoder.encode(address, forKey:"address")
 		aCoder.encode(label, forKey:"label")
 	}
 
 
 	//Required for the class to conform to the NSCoding protocol.
-	init(coder aDecoder: NSCoder!) {
+	@objc init(coder aDecoder: NSCoder!) {
 		address = aDecoder.decodeObject(forKey: "address") as! String
 		label = aDecoder.decodeObject(forKey: "label") as! String
 	}
